@@ -1,7 +1,7 @@
 from sqlalchemy import JSON, Column, Integer, String,Enum
 from app.database import Base
 class Users(Base):
-    __table_name__ = "users"
+    __tablename__ = "users"
     
     id = Column(Integer,primary_key=True)
     

@@ -1,7 +1,7 @@
 from sqlalchemy import JSON, Column, Integer, String,Time , Date,Enum
 from app.database import Base
 class Appointments(Base):
-    __table_name__ = "appointments"
+    __tablename__ = "appointments"
     
     id = Column(Integer,primary_key=True)
     user_id = Column(Integer,nullable=False) #ForeignKey

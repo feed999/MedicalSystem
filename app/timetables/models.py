@@ -1,7 +1,7 @@
 from sqlalchemy import JSON, Column, Integer, String,Time
 from app.database import Base
 class Timetables(Base):
-    __table_name__ = "timetables"
+    __tablename__ = "timetables"
     
     id = Column(Integer,primary_key=True)
     doctor_id = Column(Integer,nullable=False) #ForeignKey

@@ -1,7 +1,7 @@
-from sqlalchemy import JSON, Column, Integer, String,Enum,Text
+from sqlalchemy import JSON, Column, Integer, String,Enum,Text,DateTime
 from app.database import Base
 class Records(Base):
-    __table_name__ = "records"
+    __tablename__ = "records"
     
     id = Column(Integer,primary_key=True)
     user_id = Column(Integer,nullable=False) #ForeignKey
@@ -10,7 +10,7 @@ class Records(Base):
     appointment_id = Column(Integer,nullable=False) #ForeignKey
     diagnosis = Column(String,nullable=False) 
     treatment = Column(Text,nullable=False) 
-
+    created_at = Column(DateTime,nullable=False) 
 
 
 
