@@ -2,7 +2,7 @@
 .env
 
 test.py
-basedate.sql
+basadata.sql
 # OS-specific files
 *.DS_Store
 *.pyc
