@@ -1,0 +1,7 @@
+Users-"users" - все пользователи
+Doctors-"doctors - доктора
+Appointments-"appointments - запись на прием к доктору
+Timetable-"timetable - расписание на прием врачей
+Records-"records - управление историей посещений пользователя (медкарта)
+Documents-"documents" - данные пользователей (паспорт, снилс,...)
+Rooms-"rooms" - кабинеты приема врачей
