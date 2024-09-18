@@ -1,8 +1,8 @@
+basadata.sql
 .venv
 .env
 
 test.py
-basadata.sql
 # OS-specific files
 *.DS_Store
 *.pyc
