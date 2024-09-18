@@ -2,17 +2,8 @@
 .env
 
 
-app/__pycache__/
+# OS-specific files
+*.DS_Store
+*.pyc
+__pycache__/
 
-app/rooms/__pycache__/
-app/appointments/__pycache__/
-app/doctors/__pycache__/
-app/documents/__pycache__/
-app/records/__pycache__/
-app/rooms/__pycache__/
-app/timetables/__pycache__/
-app/users/__pycache__/
-
-app/migrations/__pycache__/
-
-app/migrations/versions/__pycache__/
