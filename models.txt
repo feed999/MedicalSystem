@@ -1,3 +1,5 @@
+Roles-"roles" - роли пользователей
+Status-"status" - статус записи
 Users-"users" - все пользователи
 Doctors-"doctors - доктора
 Appointments-"appointments - запись на прием к доктору
