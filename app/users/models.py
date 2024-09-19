@@ -1,7 +1,7 @@
-from sqlalchemy import  Column, Integer, String,Enum
+from sqlalchemy import  Column, ForeignKey, Integer, String,Enum
 from app.database import Base
 
-user_enum = Enum('ADMIN,', 'DOCTOR', 'PATIENT', name='user_enum_type')
+
 class Users(Base):
     __tablename__ = "users"
     
@@ -12,5 +12,5 @@ class Users(Base):
     email = Column(String,nullable=False) 
     phone = Column(String,nullable=False) 
     hashed_password = Column(String,nullable=False) 
-    role = Column(user_enum,nullable=False)
+    role = Column(ForeignKey("roles.id")) #
 

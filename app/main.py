@@ -2,8 +2,13 @@ from fastapi import FastAPI, Query
 from typing import Optional
 from datetime import date
 from pydantic import BaseModel
+
+from app.rooms.router  import router as router_rooms
+from app.users.router import router as router_users
 app = FastAPI()
 
+app.include_router(router_users)
+app.include_router(router_rooms)
 
 @app.get('/api/doctors/')
 def get_doctors(doctor_id: int,
