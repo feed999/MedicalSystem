@@ -1,7 +1,10 @@
-from fastapi import APIRouter, HTTPException, Response,status
+from fastapi import APIRouter, Depends, Response
 
-from app.users.auth import authenticate_user, create_access_token, get_password_hash, verify_password
+from app.exceptions import IncorrectEmailException, IncorrectPasswordException, UserAlreadyExistsException
+from app.users.auth import authenticate_user, create_access_token, get_password_hash
 from app.users.dao import UserDAO
+from app.users.dependencies import get_current_admin_user, get_current_user
+from app.users.models import Users
 from app.users.schemas import SUserAuth
 
 router = APIRouter(
@@ -16,7 +19,7 @@ async def register_user(user_data:SUserAuth):
         existing_phone = await UserDAO.find_one_or_none(phone=user_data.phone)
     
     if existing_email or existing_phone:
-        raise HTTPException(status_code=500)
+        raise UserAlreadyExistsException
     hashed_password = get_password_hash(user_data.password)
     # hashed_password = 'asdasdasd'
     await UserDAO.add(email=user_data.email, 
@@ -30,9 +33,27 @@ async def register_user(user_data:SUserAuth):
 @router.post("/login")
 async def login_user(response:Response,user_data:SUserAuth):
     user = await authenticate_user(user_data.email, user_data.password)
-    if not user:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
-    access_token = create_access_token({"sub":user.id})
+    if user == IncorrectEmailException:
+        raise IncorrectEmailException
+    elif user == IncorrectPasswordException: 
+        raise IncorrectPasswordException   
+    access_token = create_access_token({"sub":str(user.id),"id":user.id,"role":user.role})
     response.set_cookie("user_access_token", access_token,httponly=True)
     
     return access_token
+
+
+@router.post("/logout")
+async def logout_user(response:Response):
+    response.delete_cookie("user_access_token")
+    return {"status":"success"}
+
+
+@router.get("/me")
+async def read_users_me(user:Users = Depends(get_current_user)):
+    return user
+
+@router.get("/all")
+async def read_users_me(user:Users = Depends(get_current_admin_user)):
+    return await UserDAO.find_all()
+

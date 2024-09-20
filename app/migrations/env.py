@@ -15,7 +15,7 @@ from app.status.models  import Status
 from app.rooms.models import Rooms
 from app.users.models import Users
 from app.doctors.models import Doctors
-from app.documets.models import Documents
+from app.documents.models import Documents
 from app.timetables.models import Timetables
 from app.appointments.models import Appointments
 from app.records.models import Records

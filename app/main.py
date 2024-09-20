@@ -5,10 +5,22 @@ from pydantic import BaseModel
 
 from app.rooms.router  import router as router_rooms
 from app.users.router import router as router_users
+from app.timetables.router import router as router_timetables
+from app.roles.router import router as router_roles
+from app.documents.router import router as router_documents
+
+
+
 app = FastAPI()
 
 app.include_router(router_users)
 app.include_router(router_rooms)
+app.include_router(router_timetables)
+app.include_router(router_roles)
+app.include_router(router_documents)
+
+
+
 
 @app.get('/api/doctors/')
 def get_doctors(doctor_id: int,
@@ -17,13 +29,3 @@ def get_doctors(doctor_id: int,
                 stars:Optional[int] = Query(None,ge=1,le=5)):
     return "asdasd" + str(doctor_id)
 
-class SBooking(BaseModel):
-    room_id:int
-    date_from:int
-    date_to:int
-    
-
-
-@app.post('/api/booking')
-def add_bookings(booking:SBooking):
-    pass

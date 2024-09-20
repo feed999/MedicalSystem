@@ -3,6 +3,7 @@ basadata.sql
 .env
 
 test.py
+commands.txt
 # OS-specific files
 *.DS_Store
 *.pyc
