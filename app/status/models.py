@@ -6,5 +6,5 @@ class Status(Base):
     __tablename__ = "status"
     
     id = Column(Integer,primary_key=True)
-    role = Column(String,nullable=False) 
+    status = Column(String,nullable=False) 
     

@@ -1,8 +1,8 @@
-"""Initial migration
+"""Init
 
-Revision ID: 5e5c043922d9
+Revision ID: 0034bb61c946
 Revises: 
-Create Date: 2024-09-19 12:03:06.874985
+Create Date: 2024-09-20 17:42:53.975690
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '5e5c043922d9'
+revision: str = '0034bb61c946'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -29,12 +29,11 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('floor', sa.Integer(), nullable=False),
-    sa.Column('capacity', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('status',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('role', sa.String(), nullable=False),
+    sa.Column('status', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
@@ -71,12 +70,10 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('doctor_id', sa.Integer(), nullable=True),
-    sa.Column('room_id', sa.Integer(), nullable=True),
     sa.Column('status', sa.Integer(), nullable=True),
     sa.Column('appointment_date', sa.Date(), nullable=False),
     sa.Column('date_regist', sa.Time(), nullable=False),
     sa.ForeignKeyConstraint(['doctor_id'], ['doctors.id'], ),
-    sa.ForeignKeyConstraint(['room_id'], ['rooms.id'], ),
     sa.ForeignKeyConstraint(['status'], ['status.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -84,8 +81,11 @@ def upgrade() -> None:
     op.create_table('timetables',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('doctor_id', sa.Integer(), nullable=True),
-    sa.Column('available_from', sa.Time(), nullable=False),
-    sa.Column('available_to', sa.Time(), nullable=False),
+    sa.Column('monday', sa.ARRAY(sa.Time()), nullable=False),
+    sa.Column('tuesday', sa.ARRAY(sa.Time()), nullable=False),
+    sa.Column('wednesday', sa.ARRAY(sa.Time()), nullable=False),
+    sa.Column('thursday', sa.ARRAY(sa.Time()), nullable=False),
+    sa.Column('friday', sa.ARRAY(sa.Time()), nullable=False),
     sa.ForeignKeyConstraint(['doctor_id'], ['doctors.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

@@ -8,6 +8,10 @@ from app.users.router import router as router_users
 from app.timetables.router import router as router_timetables
 from app.roles.router import router as router_roles
 from app.documents.router import router as router_documents
+from app.doctors.router import router as router_doctors
+from app.appointments.router import router as router_appointments
+
+
 
 
 
@@ -18,14 +22,16 @@ app.include_router(router_rooms)
 app.include_router(router_timetables)
 app.include_router(router_roles)
 app.include_router(router_documents)
+app.include_router(router_doctors)
+app.include_router(router_appointments)
 
 
 
 
-@app.get('/api/doctors/')
-def get_doctors(doctor_id: int,
-                date_start:date,
-                date_end:date,
-                stars:Optional[int] = Query(None,ge=1,le=5)):
-    return "asdasd" + str(doctor_id)
+# @app.get('/api/doctors/')
+# def get_doctors(doctor_id: int,
+#                 date_start:date,
+#                 date_end:date,
+#                 stars:Optional[int] = Query(None,ge=1,le=5)):
+#     return "asdasd" + str(doctor_id)
 

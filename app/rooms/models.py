@@ -6,5 +6,4 @@ class Rooms(Base):
     id = Column(Integer,primary_key=True)
     name = Column(String,nullable=False) 
     floor = Column(Integer,nullable=False)
-    capacity = Column(Integer,nullable=False)
     
