@@ -42,5 +42,18 @@ IncorrectPolisException = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
     detail="Неверная Полис")
 
+#Exception for appointment
+AppointmentCannotBeRegister = HTTPException(
+    status_code=status.HTTP_409_CONFLICT,
+    detail="В данное время уже есть запись")
 
+
+#Exception for record
+AppointmentCannotBeRegister = HTTPException(
+    status_code=status.HTTP_409_CONFLICT,
+    detail="В данное время уже есть запись")
+
+AppointmentCannotBeRegister = HTTPException(
+    status_code=status.HTTP_409_CONFLICT,
+    detail="В данное время уже есть запись")
 

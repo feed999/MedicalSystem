@@ -34,3 +34,8 @@ async def get_current_admin_user(user:Users = Depends(get_current_user)):
     if user.role !=1:
         raise TokenAdminException
     return user
+
+async def get_current_doctor_user(user:Users = Depends(get_current_user)):
+    if user.role !=2:
+        raise TokenAdminException
+    return user

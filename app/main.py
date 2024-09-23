@@ -10,6 +10,8 @@ from app.roles.router import router as router_roles
 from app.documents.router import router as router_documents
 from app.doctors.router import router as router_doctors
 from app.appointments.router import router as router_appointments
+from app.records.router import router as router_records
+
 
 
 
@@ -23,8 +25,8 @@ app.include_router(router_timetables)
 app.include_router(router_roles)
 app.include_router(router_documents)
 app.include_router(router_doctors)
-
 app.include_router(router_appointments)
+app.include_router(router_records)
 
 
 
