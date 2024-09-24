@@ -2,6 +2,7 @@ basadata.sql
 .venv
 .env
 
+databaseADD.py
 test.py
 commands.txt
 # OS-specific files
