@@ -3,8 +3,8 @@ from app.database import Base
 
 
 class Status(Base):
-    __tablename__ = "status"
+    __tablename__ = "statuses"
     
     id = Column(Integer,primary_key=True)
-    status = Column(String,nullable=False) 
+    name = Column(String,nullable=False) 
     

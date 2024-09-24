@@ -1,8 +1,8 @@
 """Init
 
-Revision ID: c79b13c39a05
+Revision ID: 7469b2ec6a45
 Revises: 
-Create Date: 2024-09-24 05:07:40.615738
+Create Date: 2024-09-24 12:15:28.686161
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'c79b13c39a05'
+revision: str = '7469b2ec6a45'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -29,11 +29,6 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('floor', sa.Integer(), nullable=False),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('status',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('status', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
@@ -70,11 +65,9 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('doctor_id', sa.Integer(), nullable=True),
-    sa.Column('status', sa.Integer(), nullable=True),
     sa.Column('appointment_date', sa.Date(), nullable=False),
     sa.Column('date_regist', sa.Time(), nullable=False),
     sa.ForeignKeyConstraint(['doctor_id'], ['doctors.id'], ),
-    sa.ForeignKeyConstraint(['status'], ['status.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -82,11 +75,9 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('doctor_id', sa.Integer(), nullable=True),
-    sa.Column('status', sa.Integer(), nullable=True),
     sa.Column('appointment_date', sa.Date(), nullable=False),
     sa.Column('date_regist', sa.Time(), nullable=False),
     sa.ForeignKeyConstraint(['doctor_id'], ['doctors.id'], ),
-    sa.ForeignKeyConstraint(['status'], ['status.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -112,7 +103,6 @@ def downgrade() -> None:
     op.drop_table('documents')
     op.drop_table('doctors')
     op.drop_table('users')
-    op.drop_table('status')
     op.drop_table('rooms')
     op.drop_table('roles')
     # ### end Alembic commands ###

@@ -59,7 +59,6 @@ class AppointmentsDAO(BaseDAO):
             add_appointment = insert(Appointments).values(
                 user_id = user_id,
                 doctor_id = doctor_id,
-                status = 1,
                 appointment_date = appointment_date,
                 date_regist = date_regist
                 ).returning(Appointments)

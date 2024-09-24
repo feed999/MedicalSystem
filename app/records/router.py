@@ -1,12 +1,13 @@
 from datetime import date, time
 from fastapi import APIRouter, Depends
+from sqlalchemy import select
 
 from app.appointments.dao import AppointmentsDAO
 from app.appointments.models import Appointments
 from app.doctors.dao import DoctorsDAO
 from app.records.dao import RecordsDAO
 from app.records.schemas import SRecords
-from app.exceptions import AppointmentCannotBeRegister, TokenAdminException
+from app.exceptions import AppointmentCannotBeRegister, RecordCannotBeRegister, TokenAdminException
 from app.users.dependencies import get_current_admin_user, get_current_doctor_user, get_current_user
 from app.records.models import Records
 from app.users.models import Users
@@ -44,13 +45,12 @@ async def add_records(
     record = await RecordsDAO.add(
         user_id = appointment.user_id,
         doctor_id = appointment.doctor_id,
-        status = 2,
         appointment_date = appointment.appointment_date,
         date_regist = appointment.date_regist
     )
+
     async with async_session_maker() as session:
-        appointment_to_delete = session.query(Appointments).filter(Appointments.id == appointment_id).first()
-        if appointment_to_delete:
-            session.delete(appointment_to_delete)  # Удаление записи
-            session.commit()  # Подтверждение изменений
+        await session.delete(appointment)
+        await session.commit()
+        
     return {"status":"success"}

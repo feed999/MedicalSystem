@@ -4,7 +4,8 @@ from fastapi import APIRouter, Depends
 from app.appointments.dao import AppointmentsDAO
 from app.appointments.schemas import SAppointments
 from app.doctors.dao import DoctorsDAO
-from app.exceptions import AppointmentCannotBeRegister
+from app.documents.dao import DocumentsDAO
+from app.exceptions import AppointmentCannotBeRegister, IncorrectNotExistsException
 from app.users.dependencies import get_current_admin_user, get_current_doctor_user, get_current_user
 from app.appointments.models import Appointments
 from app.users.models import Users
@@ -47,7 +48,9 @@ async def add_appointments(
                 appointment_date:date,
                 date_regist:time,
                 user:Users = Depends(get_current_user)):
-    
+    documents_exists = await DocumentsDAO.find_one_or_none(user_id=user.id)
+    if not documents_exists:
+        raise IncorrectNotExistsException
     appointment = await AppointmentsDAO.add(user.id,doctor_id,appointment_date,date_regist)
     if not appointment:
         raise AppointmentCannotBeRegister

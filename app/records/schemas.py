@@ -3,8 +3,9 @@ from pydantic import BaseModel
 
 class SRecords(BaseModel):
     id:int
-    user_id:str
-    doctor_id:str
+    user_id:int
+    doctor_id:int
+    status_id:int
     appointment_id :int
     diagnosis:str
     treatment:str

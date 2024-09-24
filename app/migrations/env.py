@@ -11,7 +11,6 @@ sys.path.insert(0,dirname(dirname(abspath(__file__))))
 from app.database import Base
 from app.config import DATABASE_URL
 from app.roles.models  import Roles
-from app.status.models  import Status 
 from app.rooms.models import Rooms
 from app.users.models import Users
 from app.doctors.models import Doctors
