@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 @router.get("/all")
-async def get_all_doctors(user:Users = Depends(get_current_user))->list[SDoctors]:
+async def get_all_doctors(user:Users = Depends(get_current_user)):
     result = await DoctorsDAO.find_all()
     # return {"rooms":result}
     return result

@@ -5,6 +5,7 @@ basadata.sql
 databaseADD.py
 test.py
 commands.txt
+app/migrations/versions/
 # OS-specific files
 *.DS_Store
 *.pyc

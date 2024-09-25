@@ -39,3 +39,22 @@ async def get_current_doctor_user(user:Users = Depends(get_current_user)):
     if user.role !=2:
         raise TokenAdminException
     return user
+
+async def get_current_admin(token:str = Depends(get_token)):
+    try:
+        payload = jwt.decode(
+        token,settings.SECRET_KEY,settings.ALGORITHM)
+    except:
+        raise TokenAbsentException
+    expire :int = payload.get("exp")
+    if not expire or int(expire) < datetime.utcnow().timestamp():
+        raise TokenExpiredException
+    user_id:int =  payload.get("id")
+    if not user_id:
+        raise TokenAbsentException
+    user = await UserDAO.find_by_id(user_id)
+    if not user:
+        raise TokenAbsentException
+    if user.role !=1:
+        raise TokenAdminException
+    return user

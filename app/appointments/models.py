@@ -1,5 +1,7 @@
 from sqlalchemy import JSON, Column, ForeignKey, Integer, String,Time , Date,Enum
 from app.database import Base
+from sqlalchemy.orm import relationship
+
 
 class Appointments(Base):
     __tablename__ = "appointments"
@@ -9,4 +11,15 @@ class Appointments(Base):
     doctor_id = Column(ForeignKey("doctors.id")) #ForeignKey
     appointment_date = Column(Date,nullable=False)
     date_regist = Column(Time,nullable=False)
+    
+    
+    doctor = relationship("Doctors",back_populates="appointment")
+    user = relationship("Users",back_populates="appointment")
+
+    
+    
+    def __str__(self):
+        return f"Appointment: #{self.id}"
+    
+    
     
