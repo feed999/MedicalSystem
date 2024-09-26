@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class STimetables(BaseModel):
     id : int
     doctor_id : int

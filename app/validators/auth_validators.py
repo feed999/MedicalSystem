@@ -1,5 +1,3 @@
-
-
 def is_correct_password(password: str):
     if len(password)<8:
         return False

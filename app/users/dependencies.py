@@ -1,11 +1,15 @@
 
 from datetime import datetime
+
 from fastapi import Depends, Request
 from jose import jwt
+
 from app.config import settings
-from app.exceptions import TokenAbsentException, TokenAdminException, TokenExpiredException
+from app.exceptions import (TokenAbsentException, TokenAdminException,
+                            TokenExpiredException)
 from app.users.dao import UserDAO
 from app.users.models import Users
+
 
 def get_token(request:Request):
     token = request.cookies.get("user_access_token")

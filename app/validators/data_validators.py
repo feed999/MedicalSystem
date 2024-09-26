@@ -1,5 +1,3 @@
-
-
 def is_correct_passport(passport: str):
     if not '-' in passport:
         return False

@@ -1,10 +1,13 @@
-from datetime import datetime, timedelta, timezone
-from passlib.context import CryptContext
+from datetime import datetime, timedelta
+
 from jose import jwt
+from passlib.context import CryptContext
 from pydantic import EmailStr
+
 from app.config import settings
 from app.exceptions import IncorrectEmailException, IncorrectPasswordException
 from app.users.dao import UserDAO
+
 pwd_context = CryptContext(schemes=["bcrypt"],deprecated="auto")
 
 def get_password_hash(password:str)->str:

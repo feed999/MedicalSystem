@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends
+
 from app.timetables.dao import TimetablesDAO
 from app.timetables.schemas import STimetables
-from app.users.dependencies import get_current_admin_user, get_current_user
+from app.tools.default_api_response import default_api_response
+from app.users.dependencies import  get_current_user
 from app.users.models import Users
-
-
 
 router = APIRouter(
     prefix="/timetables",
@@ -12,19 +12,15 @@ router = APIRouter(
 )
 
 @router.get("/all")
-async def get_all_timetables(user:Users = Depends(get_current_user))->list[STimetables]:
+async def get_all_timetables(user:Users = Depends(get_current_user)):
     result = await TimetablesDAO.find_all()
-    # return {"rooms":result}
-    return result
+    return await default_api_response(message=result)
+
 
 @router.get("/{doctor_id}")
 async def get_all_timetables(doctor_id:int,user:Users = Depends(get_current_user)):
     result = await TimetablesDAO.find_one_or_none(doctor_id=doctor_id)
-    # return {"rooms":result}
-    return result
+    return await default_api_response(message=result)
 
-# @router.post("/add")
-# async def add(doctor_id:int,user:Users = Depends(get_current_user)):
-#     result = await TimetablesDAO.find_by_id(doctor_id)
-#     # return {"rooms":result}
-#     return result
+
+

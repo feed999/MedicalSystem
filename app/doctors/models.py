@@ -1,13 +1,15 @@
-from sqlalchemy import JSON, Column, ForeignKey, Integer, String,Text
-from app.database import Base
+from sqlalchemy import  Column, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
+
+from app.database import Base
+
 
 class Doctors(Base):
     __tablename__ = "doctors"
     
     id = Column(Integer,primary_key=True)
-    user_id = Column(ForeignKey("users.id")) #ForeignKey
-    room_id = Column(ForeignKey("rooms.id")) #ForeignKey
+    user_id = Column(ForeignKey("users.id"))
+    room_id = Column(ForeignKey("rooms.id")) 
     image_id = Column(Integer)
     specialization = Column(String,nullable=False)
     years_of_experience = Column(Integer)

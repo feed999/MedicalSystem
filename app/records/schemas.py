@@ -1,5 +1,5 @@
-from datetime import date, datetime,time
 from pydantic import BaseModel
+
 
 class SRecords(BaseModel):
     id:int

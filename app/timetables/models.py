@@ -1,12 +1,14 @@
-from sqlalchemy import JSON, Column, ForeignKey, Integer, String,Time,ARRAY
-from app.database import Base
+from sqlalchemy import ARRAY, Column, ForeignKey, Integer, Time
 from sqlalchemy.orm import relationship
+
+from app.database import Base
+
 
 class Timetables(Base):
     __tablename__ = "timetables"
     
     id = Column(Integer,primary_key=True)
-    doctor_id = Column(ForeignKey("doctors.id")) #ForeignKey
+    doctor_id = Column(ForeignKey("doctors.id")) 
     monday = Column(ARRAY(Time),nullable=False)
     tuesday =Column(ARRAY(Time),nullable=False)
     wednesday = Column(ARRAY(Time),nullable=False)

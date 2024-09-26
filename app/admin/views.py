@@ -9,6 +9,7 @@ from app.rooms.models import Rooms
 from app.timetables.models import Timetables
 from app.users.models import Users
 
+
 class RolesAdmin(ModelView,model=Roles):
     column_list = [Roles.id,Roles.role,Roles.user]
     name = "Роль"
@@ -37,7 +38,6 @@ class TimetablesAdmin(ModelView,model=Timetables):
     name_plural = "Расписание Докторов"
     page_size = 25
 class AppointmentsAdmin(ModelView,model=Appointments):
-    # column_list = [c.name for c in Appointments.__table__.c]
     column_list = [Appointments.id,Appointments.user,Appointments.doctor,Appointments.appointment_date,Appointments.date_regist]
     name = "Запись на прием"
     name_plural = "Записи на прием"

@@ -1,5 +1,7 @@
-from datetime import date,time
+from datetime import date, time
+
 from pydantic import BaseModel
+
 
 class SAppointments(BaseModel):
     id:int

@@ -2,67 +2,72 @@ from fastapi import HTTPException, status
 
 UserAlreadyExistsException =HTTPException(
     status_code=status.HTTP_409_CONFLICT,
-    detail="Пользователь уже существует"
+    detail={"status":409,"message":"Пользователь уже существует"}
 )
 UserEmailAlreadyExistsException =HTTPException(
     status_code=status.HTTP_409_CONFLICT,
-    detail="Пользователь с таким email уже существует"
+    detail={"status":409,"message":"Пользователь с таким email уже существует"}
 )
 UserPhonelreadyExistsException =HTTPException(
     status_code=status.HTTP_409_CONFLICT,
-    detail="Пользователь с таким номером телефона уже существует"
+    detail={"status":409,"message":"Пользователь с таким номером телефона уже существует"}
 )
 # Exception for Users
 IncorrectEmailException =HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Неверная Почта")
+    detail={"status":401,"message":"Неверная Почта"})
 IncorrectPasswordException =HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Неверный Пароль")
+    detail={"status":401,"message":"Неверный Пароль"})
 IncorrectPhoneException =HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Неверный Номер телефона")
+    detail={"status":401,"message":"Неверный Номер телефона"})
 IncorrectFirstNameException =HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Неверное Имя")
+    detail={"status":401,"message":"Неверное Имя"})
 IncorrectLastNameException =HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Неверная Фамилия")
+    detail={"status":401,"message":"Неверная Фамилия"})
 
-# Exception for Token
+
 TokenAbsentException =HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
+    detail={"status":401,"message":"Необходимо авторизоваться"})
+
+TokenAbsentAdminException =HTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED,
     detail="Необходимо авторизоваться")
+
 TokenExpiredException =HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Время сеанса истекло")
+    detail={"status":401,"message":"Время сеанса истекло"})
 TokenAdminException =HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="У вас нет прав")
+    detail={"status":401,"message":"У вас нет прав"})
 # Exception for Documents 
 IncorrectExistsException = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="У вас уже заполнены документы")
+    detail={"status":401,"message":"У вас уже заполнены документы"})
 IncorrectNotExistsException = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="У вас не заполнены документы")
+    detail={"status":401,"message":"У вас не заполнены документы"})
 IncorrectPassportException = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Неверный Паспорт")
+    detail={"status":401,"message":"Неверный Паспорт"})
 IncorrectSnilsException = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Неверный СНИЛС")
+    detail={"status":401,"message":"Неверный СНИЛС"})
 IncorrectPolisException = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Неверная Полис")
+    detail={"status":401,"message":"Неверная Полис"})
 
 IncorrectAddException= HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Неудалось добавить документы")
+    detail={"status":401,"message":"Неудалось добавить документы"})
 #Exception for appointment
 AppointmentCannotBeRegister = HTTPException(
     status_code=status.HTTP_409_CONFLICT,
-    detail="В данное время уже есть запись")
+    detail={"status":401,"message":"В данное время уже есть запись"})
 
 
 #Exception for record

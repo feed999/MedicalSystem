@@ -1,13 +1,14 @@
 from datetime import date, time
 
-from sqlalchemy import and_, cast, func, insert, or_, select, text
-from app.dao.base import BaseDAO
+from sqlalchemy import and_, func, insert, select, text
+
 from app.appointments.models import Appointments
+from app.dao.base import BaseDAO
 from app.database import async_session_maker, engine
+
 
 class AppointmentsDAO(BaseDAO):
     model = Appointments
-    
     
     @classmethod
     async def add(
@@ -52,7 +53,6 @@ class AppointmentsDAO(BaseDAO):
             
             responce = await session.execute(query)
             appointment_exists = responce.scalar()
-            print(appointment_exists)
             
             if appointment_exists:
                 return None
