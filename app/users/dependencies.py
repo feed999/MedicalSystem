@@ -13,6 +13,7 @@ from app.users.models import Users
 
 def get_token(request:Request):
     token = request.cookies.get("user_access_token")
+    print(request.cookies)
     if not token:
         print(0)
         
