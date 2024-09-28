@@ -15,7 +15,7 @@ router = APIRouter(
 
 @router.get("")
 async def get_all_rooms(user:Users = Depends(get_current_user)):
-    print(user.id,user.role,user.email)
+    # print(user.id,user.role,user.email)
     result = await RoomsDAO.find_all()
     return await default_api_response(message=result)
     
