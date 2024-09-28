@@ -10,7 +10,7 @@ from app.users.dependencies import get_current_admin
 class AdminAuth(AuthenticationBackend):
     async def login(self, request: Request) -> bool:
         form = await request.form()
-        email, password = form["username"], form["password"]
+        email, password = form["email"], form["password"]
         user = await authenticate_user_auth(email, password)
         if user:
             access_token = create_access_token({"sub":str(user.id),"id":user.id,"role":user.role})
@@ -28,9 +28,13 @@ class AdminAuth(AuthenticationBackend):
         token = request.session.get("token")
 
         if not token:
+            request.session.clear()
+            
             return False
         user = await get_current_admin(token)
         if not user:
+            request.session.clear()
+            
             return False
             
         # Check the token in depth
