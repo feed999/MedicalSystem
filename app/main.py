@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from sqladmin import Admin
-from flask_cors import CORS
+from fastapi.middleware.cors import CORSMiddleware
+
 
 from app.admin.auth import authentication_backend
 from app.admin.views import (AppointmentsAdmin, DoctorsAdmin, DocumentsAdmin,
@@ -21,7 +22,22 @@ from app.timetables.router import router as router_timetables
 from app.users.router import router as router_users
 
 app = FastAPI()
-CORS(app)
+
+
+# Разрешенные домены
+origins = [
+    "http://localhost",  # Можно добавить конкретные домены
+    "http://localhost:8000"
+    # или "*" для разрешения всех доменов (не рекомендуется для продакшена)
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,          # Разрешенные источники
+    allow_credentials=True,         # Разрешить куки и креденшелы
+    allow_methods=["*"],            # Разрешить все методы
+    allow_headers=["*"],            # Разрешить любые заголовки
+)
 app.mount('/static',StaticFiles(directory="app/static"),"static")
 
 
