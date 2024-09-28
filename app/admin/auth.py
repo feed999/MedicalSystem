@@ -1,7 +1,7 @@
 from sqladmin import Admin
 from sqladmin.authentication import AuthenticationBackend
 from starlette.requests import Request
-
+from fastapi.responses import Response
 from app.users.auth import (authenticate_user_auth,
                             create_access_token)
 from app.users.dependencies import get_current_admin
@@ -21,6 +21,10 @@ class AdminAuth(AuthenticationBackend):
     async def logout(self, request: Request) -> bool:
         # Usually you'd want to just clear the session
         request.session.clear()
+    
+        Response.delete_cookie("token")
+        Response.delete_cookie("session")
+        
         return True
     
     
@@ -29,11 +33,17 @@ class AdminAuth(AuthenticationBackend):
 
         if not token:
             request.session.clear()
-            
+        
+            Response.delete_cookie("token")
+            Response.delete_cookie("session")
             return False
         user = await get_current_admin(token)
+        
         if not user:
             request.session.clear()
+        
+            Response.delete_cookie("token")
+            Response.delete_cookie("session")
             
             return False
             
