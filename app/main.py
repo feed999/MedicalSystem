@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from sqladmin import Admin
+from flask_cors import CORS
 
 from app.admin.auth import authentication_backend
 from app.admin.views import (AppointmentsAdmin, DoctorsAdmin, DocumentsAdmin,
@@ -20,28 +21,9 @@ from app.timetables.router import router as router_timetables
 from app.users.router import router as router_users
 
 app = FastAPI()
+CORS(app)
 app.mount('/static',StaticFiles(directory="app/static"),"static")
 
-# Маршрут для OPTIONS-запроса
-@app.options("/")
-async def options_items():
-    headers = {
-        "Allow": "OPTIONS, GET, POST",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "OPTIONS, GET, POST",
-        "Access-Control-Allow-Headers": "Content-Type"
-    }
-    return JSONResponse(content={}, headers=headers)
-# Маршрут для OPTIONS-запроса
-@app.options("/items")
-async def options_items():
-    headers = {
-        "Allow": "OPTIONS, GET, POST",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "OPTIONS, GET, POST",
-        "Access-Control-Allow-Headers": "Content-Type"
-    }
-    return JSONResponse(content={}, headers=headers)
 
 app.include_router(router_users)
 app.include_router(router_rooms)
