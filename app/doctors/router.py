@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from fastapi.responses import JSONResponse
 
 from app.doctors.dao import DoctorsDAO
 from app.tools.default_api_response import default_api_response
@@ -16,7 +17,15 @@ async def get_all_doctors():
     
     result = await DoctorsDAO.find_all()
     return await default_api_response(message=result)
-
+@router.options("/all")
+async def options_items():
+    headers = {
+        "Allow": "OPTIONS, GET, POST",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS, GET, POST",
+        "Access-Control-Allow-Headers": "Content-Type"
+    }
+    return JSONResponse(content={}, headers=headers)
 
 @router.get("/{doctor_id}")
 async def get_doctor(doctor_id:int,user:Users = Depends(get_current_user)):
