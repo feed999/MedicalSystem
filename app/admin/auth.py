@@ -10,7 +10,7 @@ from app.users.dependencies import get_current_admin
 class AdminAuth(AuthenticationBackend):
     async def login(self, request: Request) -> bool:
         form = await request.form()
-        email, password = form["email"], form["password"]
+        email, password = form["username"], form["password"]
         user = await authenticate_user_auth(email, password)
         if user:
             access_token = create_access_token({"sub":str(user.id),"id":user.id,"role":user.role})
@@ -20,11 +20,7 @@ class AdminAuth(AuthenticationBackend):
     
     async def logout(self, request: Request) -> bool:
         # Usually you'd want to just clear the session
-        request.session.clear()
-    
-        Response.delete_cookie("token")
-        Response.delete_cookie("session")
-        
+        request.session.clear()  
         return True
     
     
@@ -33,18 +29,12 @@ class AdminAuth(AuthenticationBackend):
 
         if not token:
             request.session.clear()
-        
-            Response.delete_cookie("token")
-            Response.delete_cookie("session")
             return False
         user = await get_current_admin(token)
         
         if not user:
             request.session.clear()
         
-            Response.delete_cookie("token")
-            Response.delete_cookie("session")
-            
             return False
             
         # Check the token in depth
